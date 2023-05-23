@@ -1,12 +1,11 @@
 let initArray = [];
 
 let initPictures = [
-    '{"name":"Potato","description":"Fresh Potato","price":"$2.99/lb","unit":"300lb","url":"../images/potatoes.jpeg"}',
-    '{ "name":"Tomato","description":"Fresh Tomato","price":"$3.99/lb","unit":"100lb","url":"../images/tomato.jpeg"}',
-    '{ "name":"Bread", "description":"Sliced Bread", "price":"$3.99/bag", "unit":"50bag","url":"../images/bread.jpeg"}',
-    '{"name":"Rice","description":"Rice from China","price":"$15.99/15lb", "unit":"150bag","url":"../images/rice.jpeg"}'];
+    '{"name":"Potato","description":"Fresh Potato","price":"$2.99/lb","unit":"300lb","url":"images/potatoes.jpeg"}',
+    '{ "name":"Tomato","description":"Fresh Tomato","price":"$3.99/lb","unit":"100lb","url":"images/tomato.jpeg"}',
+    '{ "name":"Bread", "description":"Sliced Bread", "price":"$3.99/bag", "unit":"50bag","url":"images/bread.jpeg"}',
+    '{"name":"Rice","description":"Rice from China","price":"$15.99/15lb", "unit":"150bag","url":"images/rice.jpeg"}'];
 
-window.onload = drawInitPictures(initPictures);
 
 function drawInitPictures(JsonArray) {
     JsonArray.map(x => {
@@ -37,6 +36,8 @@ function drawInitPicturesHelper(x) {
 
     container.innerHTML += content;
 }
+
+window.onload = drawInitPictures(initPictures);
 
 function addItem() {
     const itemName = document.getElementById('itemName').value;
