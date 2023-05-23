@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Grocery Inventory Management</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <ul>
+    <li><a id="nav_home" class="active" href="index.html">Home</a></li>
+    <li><a id="nav_about" href="about.html">About</a></li>
+    </ul>
+</head>
+<body>
+<div class="container">
+    <div class="intro">
+        <p id="title">SuperGo Inventory Management</p>
+    </div>
+</div>
+<hr />
+<h2 class="header">Add items here!</h2>
+<div id="AddItem">
+    <form>
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName"><br><br>
+        <label for="itemDescription">Item Description:</label>
+        <input type="text" id="itemDescription" name="itemDescription"><br><br>
+        <label for="itemPrice">Item Price:</label>
+        <input type="text" id="itemPrice" name="itemPrice"><br><br>
+        <label for="itemUnit">Item Unit:</label>
+        <input type="text" id="itemUnit" name="itemUnit"><br><br>
+        <label for="itemImage">Item Image:</label>
+        <input type="text" id="itemImage" name="itemImage"><br><br>
+        <input type="button" value="Submit" onclick="addItem()">
+        <input type="button" value="Clear" onclick="clearItem()">
+    </form>
+</div>
+<hr>
+<div class="section">
+    <div id="ItemList">
+        <h2 class="header">Item List</h2>
+    </div>
+    <div id="AllDelete">
+        <button id="DeleteAllItems" class="button" onclick="deleteAll()">Delete All Items</button>
+    </div>
+</div>
+<div class="section" id="picture">
+</div>
+</div>
+<script src="frontend.js"></script>
+</body>
+</html>
+
