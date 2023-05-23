@@ -1,1 +1,1 @@
-# CPSC455-Assignment-1
+# CPSC455-Assignments
