@@ -4,8 +4,8 @@ import { Chip } from '@mui/material';
 
 const StyledChip = styled(Chip)`
   margin: 0.5rem;
-  height: 3rem;
-  font-size: 2rem;
+  height: 1.5rem;
+  font-size: 1rem;
   border-radius: 1.5rem;
   padding: 0.5rem;
 `;
