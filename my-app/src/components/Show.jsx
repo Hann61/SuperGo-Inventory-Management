@@ -3,14 +3,14 @@ import React from "react";
 import Function from "./Function";
 import '../pages/pages.css';
 
-function Show({ url, name, description, price, id, time, images, setCards, numCardsAdded }) {
+function Show({ url, name, description, price, cardId, time, images, setCards, numCardsAdded, callGetAllCardsAPI }) {
 
     const [visibility, setVisibility] = useState(false);
 
     return (
         <div className="card-display">
             <div className="card" onClick={(() => setVisibility(true))}>
-                <img className="card-image-longer" src={url}></img>
+                <img className="card-image-longer" src={url} alt="item"></img>
                 <div className="text-container">
                     <p><b>{name}</b></p>
                     <p>{description}</p>
@@ -18,7 +18,10 @@ function Show({ url, name, description, price, id, time, images, setCards, numCa
                     <p>{time}</p>
                 </div>
             </div>
-            {visibility && <Function setVisibility={setVisibility} name={name} description={description} price={price} url={url} id={id} images={images} setCards={setCards} time={time} numCardsAdded={numCardsAdded} />}
+            {visibility && <Function setVisibility={setVisibility} name={name}
+                                     description={description} price={price} url={url} cardId={cardId} images={images}
+                                     setCards={setCards} time={time} numCardsAdded={numCardsAdded}
+                                     callGetAllCardsAPI={callGetAllCardsAPI}/>}
         </div>
     );
 }

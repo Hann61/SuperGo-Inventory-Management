@@ -2,14 +2,31 @@ import { useEffect, useState } from "react";
 import React from "react";
 import '../pages/pages.css';
 
-function Form({ cards, setCards, deleteAllState, setDeleteAllState, setNumCardsAdded, numCardsAdded }) {
+function Form({ callGetAllCardsAPI }) {
 
     const [imageName, setImageName] = useState("");
     const [imageDescription, setImageDescription] = useState("");
     const [imagePrice, setImagePrice] = useState("");
     const [imageURL, setImageURL] = useState("");
-    const [imageID, setImageID] = useState(cards.length);
     const dateTime = new Date();
+
+    function callCreateCardAPI(name, description, url, price) {
+        const time = dateTime.toLocaleTimeString();
+        const newCard = {
+            name,
+            url,
+            description,
+            price,
+            time
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newCard)
+        };
+        fetch("http://localhost:3005/users/api/card/create", requestOptions)
+            .then(_ => callGetAllCardsAPI());
+    }
 
     function clearFields() {
         setImageName("");
@@ -18,28 +35,6 @@ function Form({ cards, setCards, deleteAllState, setDeleteAllState, setNumCardsA
         setImageURL("");
     }
 
-    function createCard(name, description, price, url) {
-        setImageID(imageID + 1);
-        const id = imageID;
-        const time = dateTime.toLocaleTimeString();
-        const newCard = {
-            name,
-            url,
-            description,
-            price,
-            id,
-            time
-        }
-
-        const newCards = [...cards, newCard];
-        setCards(newCards);
-        setNumCardsAdded(numCardsAdded + 1);
-    }
-
-    useEffect(() => {
-        setDeleteAllState(false);
-        setImageID(0);
-    }, [deleteAllState]);
 
     return (
         <form>
@@ -67,7 +62,7 @@ function Form({ cards, setCards, deleteAllState, setDeleteAllState, setNumCardsA
                     <input className="textbox" type="text" id="imageURL" name="imageURL" value={imageURL} onChange={((evt) => setImageURL(evt.target.value))} />
                 </label>
             </div>
-            <input className="button" type="button" value="Add Item" onClick={(() => createCard(imageName, imageDescription, imagePrice, imageURL))} />
+            <input className="button" type="button" value="Add Item" onClick={(() => callCreateCardAPI(imageName, imageDescription, imagePrice, imageURL))} />
             <input className="button" type="button" value="Clear Fields" onClick={clearFields} />
         </form>
     );

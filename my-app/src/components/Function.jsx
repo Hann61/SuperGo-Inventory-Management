@@ -1,26 +1,16 @@
 import { useState } from "react";
 import React from "react";
 import '../pages/pages.css';
+import EditFunction from "./EditFunction";
 
-function Function({ id, images, setCards, name, url, description, price, setVisibility, time, numCardsAdded }) {
+function Function({ cardId, name, url, description, price, setVisibility, time, callGetAllCardsAPI }) {
 
-    const [timesDeleted, setTimesDeleted] = useState(0);
+    const [editVsibility, setEditVisibility] = useState(false);
 
-    function deleteCurrentCard() {
-        let currID;
-        if (timesDeleted === 0) {
-            currID = id;
-        } else {
-            console.log(numCardsAdded)
-            currID = id - timesDeleted + numCardsAdded;
-        }
-        setTimesDeleted(timesDeleted + 1);
-        let array = images;
-        let removed = array.filter((value, index) => {
-            return index !== currID;
-        });
-        console.log(removed)
-        setCards(removed);
+    function callDeleteCardAPI() {
+        const url = "http://localhost:3005/users/api/card/delete/" + cardId;
+        fetch(url, { method: 'DELETE' })
+            .then(_ => callGetAllCardsAPI());
     }
 
     return (
@@ -28,7 +18,7 @@ function Function({ id, images, setCards, name, url, description, price, setVisi
             <div className="Function" id="modal">
                 <h1 id="FunctionHeading">{name}</h1>
                 <div className="content">
-                    <img className="card-image-modal" src={url} alt={"image"}></img>
+                    <img className="card-image-modal" src={url} alt={"item"}></img>
                     <div id="ItemDescription">
                         <p> {description} </p>
                         {price}
@@ -38,8 +28,10 @@ function Function({ id, images, setCards, name, url, description, price, setVisi
                 <br />
                 <div className="actions">
                     <button className="toggle-button" onClick={(() => setVisibility(false))}>❌ Close</button>
-                    <button id="DeleteCardButton" className="toggle-button" onClick={deleteCurrentCard}>🗑️ Delete</button>
+                    <button id="EditCardButton" className="toggle-button" onClick={() => setEditVisibility(true)}>✏️ Edit</button>
+                    <button id="DeleteCardButton" className="toggle-button" onClick={callDeleteCardAPI}>🗑️ Delete</button>
                 </div>
+                {editVsibility && <EditFunction name={name} url={url} description={description} cardId={cardId} callGetAllCardsAPI={callGetAllCardsAPI} setEditVisibility={setEditVisibility}/>}
             </div>
         </div>
     );
