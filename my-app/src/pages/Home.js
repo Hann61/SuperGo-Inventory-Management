@@ -1,37 +1,35 @@
 import { useState, useEffect } from "react";
 import Form from "../components/Form";
 import Cards from "../components/Cards";
+import apis from "../api";
 
 function Home() {
-    // const preloadedCards = [{ name: "Potato", url: potato, description: "Fresh Potato", price:"$2.99/lb",id: 0 },
-    //     { name: "Tomato", url: tomato, description: "Fresh Tomato", price:"$3.99/lb",id: 1 },
-    //     { name: "Bread", url: bread, description: "Sliced Bread", price:"$3.99/bag",id: 2 },
-    //     { name: "Rice", url: rice, description: "Rice from China", price:"$15.99/bag",id: 3 }]
-
     const [cards, setCards] = useState([]);
-    const [numCardsAdded, setNumCardsAdded] = useState(0);
 
-    function callGetAllCardsAPI() {
-        return fetch("http://localhost:3005/users/api/cards")
-            .then(res => res.text())
-            .then(res => JSON.parse(res))
-            .then(setCards);
+    async function callGetAllCardsAPI() {
+        try {
+            const response = await apis.getAllCards();
+            if (response && response.data && response.data.data) {
+                setCards(response.data.data);
+            } else {
+                setCards([]);
+            }
+        } catch (error) {
+            console.error("Error fetching cards:", error);
+            setCards([]);
+        }
     }
 
-    function callDeleteAllCardsAPI() {
-        const url = "http://localhost:3005/users/api/cards/delete";
-        fetch(url, { method: 'DELETE' })
-            .then(_ => callGetAllCardsAPI());
+    async function callDeleteAllCardsAPI() {
+        await apis.deleteAllCards().then(res => {
+            window.alert(`Cards deleted successfully`);
+            setCards([]);
+        })
     }
 
     useEffect(() => {
-        callGetAllCardsAPI();
+        callGetAllCardsAPI()
     }, []);
-
-
-    function deleteAllCards() {
-        callDeleteAllCardsAPI();
-    }
 
     return (
         <div className="container">
@@ -51,11 +49,11 @@ function Home() {
                         <h2 className="heading">ItemList</h2>
                     </div>
                     <div id="DeleteAllCardsButton">
-                        <button id="DeleteAllButton" className="button" onClick={() => deleteAllCards()}>Delete All Items</button>
+                        <button id="DeleteAllButton" className="button" onClick={() => callDeleteAllCardsAPI()}>Delete All Items</button>
                     </div>
                 </div>
                 <div id="picture-container" className="highlights-grid">
-                    <Cards images={cards} setCards={setCards} numCardsAdded={numCardsAdded} callGetAllCardsAPI={callGetAllCardsAPI} />
+                    <Cards images={cards} setCards={setCards} callGetAllCardsAPI={callGetAllCardsAPI} />
                 </div>
             </div>
         </div >

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import moment from "moment";
+import api from "../api";
 
 export default function EditFunction({ cardId, callGetAllCardsAPI, setEditVisibility}) {
 
@@ -6,10 +8,9 @@ export default function EditFunction({ cardId, callGetAllCardsAPI, setEditVisibi
     const [imageDescription, setImageDescription] = useState("");
     const [imageURL, setImageURL] = useState("");
     const [imagePrice, setImagePrice] = useState("");
-    const dateTime = new Date();
 
-    function callUpdateCardAPI(newName, newDescription, newUrl, newPrice) {
-        const time = dateTime.toLocaleTimeString();
+    async function callUpdateCardAPI(newName, newDescription, newUrl, newPrice) {
+        const time = moment(new Date()).format('MMMM Do YYYY, h:mm:ss a');
         const newCard = {
             name: newName,
             url: newUrl,
@@ -17,14 +18,10 @@ export default function EditFunction({ cardId, callGetAllCardsAPI, setEditVisibi
             price: newPrice,
             time
         };
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newCard)
-        };
-        const url = "http://localhost:3005/users/api/card/update/" + cardId;
-        fetch(url, requestOptions)
-            .then(_ => callGetAllCardsAPI());
+        await api.updateCardById(cardId, newCard).then(res => {
+            window.alert(`Card updated successfully`);
+            callGetAllCardsAPI();
+        })
     }
 
     return (

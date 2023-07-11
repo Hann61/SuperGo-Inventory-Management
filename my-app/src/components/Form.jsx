@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 import '../pages/pages.css';
+import api from '../api';
+import moment from 'moment';
 
 function Form({ callGetAllCardsAPI }) {
 
@@ -8,24 +10,20 @@ function Form({ callGetAllCardsAPI }) {
     const [imageDescription, setImageDescription] = useState("");
     const [imagePrice, setImagePrice] = useState("");
     const [imageURL, setImageURL] = useState("");
-    const dateTime = new Date();
 
-    function callCreateCardAPI(name, description, url, price) {
-        const time = dateTime.toLocaleTimeString();
+    async function callCreateCardAPI(name, description, url, price) {
+        const time = moment(new Date()).format('MMMM Do YYYY, h:mm:ss a');
         const newCard = {
             name,
-            url,
             description,
             price,
+            url,
             time
         }
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newCard)
-        };
-        fetch("http://localhost:3005/users/api/card/create", requestOptions)
-            .then(_ => callGetAllCardsAPI());
+        await api.insertCard(newCard).then(res => {
+            window.alert(`Card inserted successfully`);
+            callGetAllCardsAPI();
+        })
     }
 
     function clearFields() {

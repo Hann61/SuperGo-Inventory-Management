@@ -2,15 +2,17 @@ import { useState } from "react";
 import React from "react";
 import '../pages/pages.css';
 import EditFunction from "./EditFunction";
+import api from "../api";
 
 function Function({ cardId, name, url, description, price, setVisibility, time, callGetAllCardsAPI }) {
 
     const [editVsibility, setEditVisibility] = useState(false);
 
-    function callDeleteCardAPI() {
-        const url = "http://localhost:3005/users/api/card/delete/" + cardId;
-        fetch(url, { method: 'DELETE' })
-            .then(_ => callGetAllCardsAPI());
+    async function callDeleteCardAPI() {
+        await api.deleteCardById(cardId).then(res => {
+            window.alert(`Card deleted successfully`);
+            callGetAllCardsAPI();
+        });
     }
 
     return (

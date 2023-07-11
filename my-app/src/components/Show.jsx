@@ -3,7 +3,7 @@ import React from "react";
 import Function from "./Function";
 import '../pages/pages.css';
 
-function Show({ url, name, description, price, cardId, time, images, setCards, numCardsAdded, callGetAllCardsAPI }) {
+function Show({_id, url, name, description, price, time, images, callGetAllCardsAPI }) {
 
     const [visibility, setVisibility] = useState(false);
 
@@ -19,9 +19,8 @@ function Show({ url, name, description, price, cardId, time, images, setCards, n
                 </div>
             </div>
             {visibility && <Function setVisibility={setVisibility} name={name}
-                                     description={description} price={price} url={url} cardId={cardId} images={images}
-                                     setCards={setCards} time={time} numCardsAdded={numCardsAdded}
-                                     callGetAllCardsAPI={callGetAllCardsAPI}/>}
+                                     description={description} price={price} url={url} cardId={_id} images={images}
+                                    time={time} callGetAllCardsAPI={callGetAllCardsAPI}/>}
         </div>
     );
 }
