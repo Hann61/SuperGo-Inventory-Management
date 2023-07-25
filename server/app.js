@@ -4,14 +4,15 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 
 const app = express();
-const apiPort = 3005
-const mongoString = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.jcoyqgd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const apiPort = process.env.PORT || 4000
+const mongoString = process.env.MONGODB_CONNECTION_STRING
 
 app.use(cors());
 // app.use(logger('dev'));
