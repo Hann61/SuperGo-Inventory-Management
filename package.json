@@ -6,9 +6,9 @@
   "scripts": {
     "install-server": "cd server && npm install",
     "start-server": "cd server && npm run start",
-    "install-client": "cd my-app && npm install",
-    "build-client": "cd my-app && npm run build",
-    "start-client": "cd my-app && npm run start"
+    "install-my-app": "cd my-app && npm install",
+    "build-my-app": "cd my-app && npm run build",
+    "start-my-app": "cd my-app && npm run start"
   },
   "keywords": [],
   "author": "",
