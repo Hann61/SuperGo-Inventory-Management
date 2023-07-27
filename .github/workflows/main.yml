@@ -18,11 +18,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - name : Change working directory to frontend
-        run: npm install
-        working-directory: my-app
       - name : Run test
         run: npm test
-        working-directory: src
+        working-directory: my-app/src
         
             
