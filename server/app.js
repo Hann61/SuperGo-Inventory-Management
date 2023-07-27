@@ -12,7 +12,7 @@ const cardRouter = require('./routes/cards');
 
 const app = express();
 const apiPort = process.env.PORT || 4000
-const mongoString = process.env.MONGODB_CONNECTION_STRING
+const mongoString = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.jcoyqgd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 app.use(cors());
 // app.use(logger('dev'));
