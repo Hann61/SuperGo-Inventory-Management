@@ -2,6 +2,8 @@ name: Node.js CI
 
 on:
   pull_request:
+    branches:
+      - '*'
   push:
     branches:
       - main
@@ -15,10 +17,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
-      - name: Install Dependencies
-        working-directory: my-app
-        run: npm install
+          node-version: '18'
       - name : Run test
         working-directory: my-app
         run: npm test
