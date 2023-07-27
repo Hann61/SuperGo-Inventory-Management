@@ -19,11 +19,11 @@ jobs:
         with:
           node-version: '18'
       - name : Change working directory to frontend
-        run: 
-            cd my-app
+        run: |
+            cd $GITHUB_WORKSPACE/my-app
             npm install
       - name : Run test
-        run: 
-            cd src
+        run: |
+            cd $GITHUB_WORKSPACE/my-app/src
             npm test
             
