@@ -20,9 +20,9 @@ jobs:
           node-version: '18'
       - name : Change working directory to frontend
         run: npm install
-        working-directory: ./my-app
+        working-directory: my-app
       - name : Run test
         run: npm test
-        working-directory: ./src
+        working-directory: src
         
             
