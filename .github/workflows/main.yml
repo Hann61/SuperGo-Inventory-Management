@@ -18,6 +18,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - name: Install dependencies
+        working-directory: my-app
+        run: npm install
       - name : Run test
         working-directory: my-app
         run: npm test
