@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3005/api',
+    baseURL: 'https://cpsc455-assignment-be.onrender.com/api',
 })
 
 export const insertCard = payload => api.post(`/card`, payload)
