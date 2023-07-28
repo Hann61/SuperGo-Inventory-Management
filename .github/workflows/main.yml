@@ -24,5 +24,4 @@ jobs:
       - name : Run test
         working-directory: my-app
         run: npm test
-        
-            
+
